@@ -4,6 +4,9 @@ import { HomePageComponent } from '@modules/home/pages/home-page/home-page.compo
 
 const routes: Routes = [
   {
+    path: '', redirectTo:'auth', pathMatch: 'full'
+  },
+  {
     path: 'auth',
     loadChildren: () => import('@modules/auth/auth.module').then(m => m.AuthModule)
   },
