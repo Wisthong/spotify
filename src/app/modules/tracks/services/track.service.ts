@@ -1,33 +1,37 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TracksModel } from '@core/models/tracks.model';
-import { Observable, of } from 'rxjs';
-import * as dataTracks from '../../../data/tracks.json';
+import { map, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TrackService {
 
-  dataTracksTrending$: Observable<TracksModel[]> = of([]);
-  dataTracksRandom$: Observable<any> = of([]);
+  private readonly URL = environment.api;
 
-  constructor() {
-    const {data} = (dataTracks);
-    this.dataTracksTrending$ = of(data);
+  constructor(private readonly http: HttpClient) {}
 
-    this.dataTracksRandom$ = new Observable((observer) =>{
-      const newCancion: TracksModel = {
-        _id: 45,
-        name: 'Wisthong Cepeda',
-        album: 'Una navidad sin ti',
-        cover: 'https://i1.sndcdn.com/artworks-000074160730-0sxwuj-t500x500.jpg',
-        url: 'https'
-      }
-      //TODO: El observer necesita agregar lo que le llega
-      setTimeout(()=>{
-        observer.next([newCancion]);
-      },5000)
-    })
+  getAllTracks$(): Observable<any>{
+    return this.http.get<any>(this.URL+'/tracks')
+    .pipe(
+      map(({data})=>{
+        return data;
+      })
+    );
+  }
 
+  //FIXME: Service para tracks Random
+  getAllRandom$(): Observable<any>{
+    return this.http.get<any>(this.URL+'/tracks')
+    .pipe(
+      map(({data})=>{
+        return data
+      }),
+      map((dataReverse)=>{
+        return dataReverse.reverse().filter((track: TracksModel)=> track._id != 8 && track._id != 5);
+      })
+    )
   }
 }

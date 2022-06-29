@@ -13,7 +13,7 @@ import { TracksPageComponent } from './pages/tracks-page/tracks-page.component';
   imports: [
     CommonModule,
     TracksRoutingModule,
-    SharedModule
+    SharedModule,
   ]
 })
 export class TracksModule { }

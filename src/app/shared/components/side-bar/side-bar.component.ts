@@ -1,4 +1,3 @@
-import { TrackService } from './../../../modules/tracks/services/track.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -13,7 +12,7 @@ export class SideBarComponent implements OnInit {
 
   customOptions: Array<any> = [];
 
-  constructor(private readonly trackService: TrackService) { }
+  constructor() { }
 
   ngOnInit(): void {
 
@@ -65,12 +64,6 @@ export class SideBarComponent implements OnInit {
       }
     ]
 
-    this.trackService.dataTracksRandom$.subscribe((res: any) =>{
-      this.customOptions.push({
-        name: res[0].name,
-        router: ['/']
-      })
-    })
 
   }
 }
