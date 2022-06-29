@@ -1,5 +1,6 @@
+import { CookieService } from 'ngx-cookie-service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '@modules/auth/services/auth.service';
 
@@ -10,12 +11,13 @@ import { AuthService } from '@modules/auth/services/auth.service';
 })
 export class AuthPageComponent implements OnInit {
   errorSession: boolean = false;
-  formLogin!: FormGroup;
+  formLogin!: UntypedFormGroup;
 
   constructor(
-    private readonly fb: FormBuilder,
+    private readonly fb: UntypedFormBuilder,
     private readonly authService: AuthService,
     private readonly router: Router,
+    private readonly cookie: CookieService
     ) { }
 
   ngOnInit(): void {
@@ -23,7 +25,7 @@ export class AuthPageComponent implements OnInit {
   }
 
 
-  initForm(): FormGroup{
+  initForm(): UntypedFormGroup{
     return this.fb.group({
       email: ['',[Validators.required,Validators.email]],
       password: ['',[Validators.required,Validators.minLength(6),Validators.maxLength(12)]],
@@ -34,8 +36,10 @@ export class AuthPageComponent implements OnInit {
     const {email, password} =  this.formLogin.value;
     this.authService.sendCredentials(email, password)
     .subscribe(res => {
-      console.log('Sesion exitosa');
+      const {data , tokenSession} = res;
+      console.log('Sesion exitosa 🎪🎪🎪', tokenSession);
       this.router.navigate(['tracks']);
+      // this.cookie.set('token',tokenSession,5, '/'); //TODO: Guardar cookie
     }, err =>{
       this.errorSession = true;
       console.log('Ocurrio algo inesperado', err.status);
