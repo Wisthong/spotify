@@ -37,8 +37,8 @@ export class AuthPageComponent implements OnInit {
     this.authService.sendCredentials(email, password)
     .subscribe(res => {
       const {data , tokenSession} = res;
-      console.log('Sesion exitosa 🎪🎪🎪', tokenSession);
-      this.router.navigate(['tracks']);
+      console.log('Sesion exitosa 🎪🎪🎪');
+      this.router.navigate(['/','tracks']);
       // this.cookie.set('token',tokenSession,5, '/'); //TODO: Guardar cookie
     }, err =>{
       this.errorSession = true;

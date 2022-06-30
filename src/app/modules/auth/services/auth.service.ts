@@ -23,10 +23,10 @@ export class AuthService {
     return this.http.post<any>(this.URL+'/auth/login',body)
     .pipe(
       tap(({tokenSession})=>{
-        this.cookie.set('token',tokenSession,5, '/');
-      }
-      )
-    );
+        this.cookie.set('token',tokenSession,4,'/');
+      })
+    )
+    ;
   }
 
 }
