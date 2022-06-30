@@ -115,3 +115,7 @@ input.ng-invalid.ng-touched {
   font-size: 20px;
   text-align: center;
 }
+
+#error{
+  color: #d90429;
+}
