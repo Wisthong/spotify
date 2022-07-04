@@ -24,7 +24,7 @@ export class TracksPageComponent implements OnInit, OnDestroy {
 
     this.trackSvc.getAllRandom$().subscribe((res: TracksModel[]) => {
       this.tracksRandom = res;
-      console.log('🩰🩰🩰🩰',res);
+      // console.log('🩰🩰🩰🩰',res);
     });
   }
 

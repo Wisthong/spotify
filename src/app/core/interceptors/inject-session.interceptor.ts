@@ -22,7 +22,7 @@ export class InjectSessionInterceptor implements HttpInterceptor {
       newRequest = request.clone(
         {
           setHeaders: {
-            authorization: 'Bearer '+token,
+            Authorization: 'Bearer '+token,
             CUSTOM_HEADER: 'WizD'
           }
         }

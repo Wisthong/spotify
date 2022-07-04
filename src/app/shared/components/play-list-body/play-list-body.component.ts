@@ -1,6 +1,5 @@
 import { TracksModel } from '@core/models/tracks.model';
-import { Component, OnInit } from '@angular/core';
-import * as dataRaw from '../../../data/tracks.json';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-play-list-body',
@@ -8,14 +7,13 @@ import * as dataRaw from '../../../data/tracks.json';
   styleUrls: ['./play-list-body.component.css']
 })
 export class PlayListBodyComponent implements OnInit {
-  tracks: TracksModel[] = [];
+  @Input() tracks: TracksModel[] = [];
   optionSort:{property: string | null, order:string} = {property: null, order: 'asc'};
 
   constructor() { }
 
   ngOnInit(): void {
-    const {data}: any = (dataRaw as any).default
-    this.tracks = data;
+
   }
 
   //FIXME: Me recibe un parametro para el cambio del orden
